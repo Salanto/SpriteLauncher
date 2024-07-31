@@ -1,0 +1,22 @@
+#pragma once
+
+#include <QString>
+
+namespace simplelauncher {
+// clang-format off
+static QString name()
+{
+    return QStringLiteral("@LAUNCHER_NAME@");
+}
+
+static QString version()
+{
+    return QStringLiteral("@LAUNCHER_VERSION@");
+}
+
+static QString userAgent()
+{
+    return QStringLiteral("@LAUNCHER_NAME@/@LAUNCHER_VERSION@");
+}
+// clang_format on
+};
