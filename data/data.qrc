@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ui/launcher.ui</file>
+        <file>ui/settings.ui</file>
+    </qresource>
+</RCC>

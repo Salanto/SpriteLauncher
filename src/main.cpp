@@ -1,16 +1,23 @@
-#include <QCoreApplication>
-#include "configloader.h"
-#include "downloadmanager.h"
+#include <QApplication>
+
+#include "filefunctions.h"
+#include "launcher.h"
 #include "version.h"
+
+#include <QDebug>
+#include <QFile>
 
 int main(int argc, char *argv[])
 {
-    QCoreApplication launcher(argc, argv);
-    QCoreApplication::setApplicationName(simplelauncher::name());
-    QCoreApplication::setApplicationVersion(simplelauncher::version());
-    ConfigLoader loader(&launcher);
-    DownloadManager manager(simplelauncher::userAgent(), &launcher);
+    qDebug() << "Starting application.";
+    QApplication app(argc, argv);
+    QApplication::setApplicationName(spritelauncher::name());
+    QApplication::setApplicationVersion(spritelauncher::version());
+    spritelauncher::FileFunctions::init();
 
-    qDebug() << QCoreApplication::applicationName();
-    return launcher.exec();
+    qDebug() << QFile().exists(":/ui/settings.ui");
+
+    Launcher launcher(&app);
+
+    return app.exec();
 }

@@ -6,6 +6,8 @@
 class QNetworkAccessManager;
 class QNetworkReply;
 
+//< Handles network interactions for fetching remote configs/downloading media.
+
 class DownloadManager : public QObject
 {
     Q_OBJECT

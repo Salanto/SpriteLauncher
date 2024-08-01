@@ -2,7 +2,7 @@
 
 #include <QString>
 
-namespace simplelauncher {
+namespace spritelauncher {
 // clang-format off
 static QString name()
 {
