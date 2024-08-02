@@ -5,6 +5,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class Download;
 
 //< Handles network interactions for fetching remote configs/downloading media.
 
@@ -12,12 +13,12 @@ class DownloadManager : public QObject
 {
     Q_OBJECT
 public:
-    explicit DownloadManager(QString user_agent, QObject *parent = nullptr);
+    explicit DownloadManager(QString f_user_agent, QObject *parent = nullptr);
+
+    Download *requestData(QUrl url);
+    Download *requestRangedData(QUrl url, int start);
 
 signals:
-
-private slots:
-    void finished(QNetworkReply *reply);
 
 private:
     QString user_agent;

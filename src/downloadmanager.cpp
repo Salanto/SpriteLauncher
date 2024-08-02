@@ -1,25 +1,25 @@
 #include "downloadmanager.h"
+#include "download.h"
 
 #include <QNetworkAccessManager>
 
-DownloadManager::DownloadManager(QString user_agent, QObject *parent)
+DownloadManager::DownloadManager(QString f_user_agent, QObject *parent)
     : QObject{parent}
+    , user_agent{f_user_agent}
     , downloader{new QNetworkAccessManager(this)}
 {
     qDebug() << "[DownloadManager]::CTOR: Creating Downloadmanager at" << this;
 }
 
-void DownloadManager::finished(QNetworkReply *reply) {}
-
-void queryServerIndex(QList<QUrl> sci_urls)
+Download *DownloadManager::requestData(QUrl url)
 {
-    for (const QUrl &url : sci_urls) {
-        if (!url.isValid()) {
-            qWarning() << "[DownloadManager::queryServerIndex: Provided server URL" << url
-                       << "is invalid";
-        }
+    QNetworkRequest request;
+    request.setUrl(url);
+    request.setHeader(QNetworkRequest::UserAgentHeader, user_agent);
+    return new Download(downloader->get(request));
+}
 
-        qInfo() << "[DownloadManager]::queryServerIndex: Querying Server Content Index of URL"
-                << url;
-    }
+Download *DownloadManager::requestRangedData(QUrl url, int start)
+{
+    return nullptr;
 }

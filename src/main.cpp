@@ -15,9 +15,7 @@ int main(int argc, char *argv[])
     QApplication::setApplicationVersion(spritelauncher::version());
     spritelauncher::FileFunctions::init();
 
-    qDebug() << QFile().exists(":/ui/settings.ui");
-
     Launcher launcher(&app);
 
-    return app.exec();
+    app.exec();
 }

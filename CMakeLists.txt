@@ -24,7 +24,10 @@ add_executable(SpriteLauncher
     src/launcher.h src/launcher.cpp
     src/launcheruserinterface.h src/launcheruserinterface.cpp
     src/settingsuserdialog.h src/settingsuserdialog.cpp
+    src/download.h src/download.cpp
     data/data.qrc
+    src/temporarydirectory.h src/temporarydirectory.cpp
+    src/gui_utils.h
 )
 
 target_link_libraries(SpriteLauncher PRIVATE
@@ -32,6 +35,7 @@ target_link_libraries(SpriteLauncher PRIVATE
     Qt6::Gui
     Qt6::Widgets
     Qt6::Network
+    Qt6::UiTools
 )
 
 set_target_properties(SpriteLauncher PROPERTIES

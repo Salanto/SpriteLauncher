@@ -19,3 +19,8 @@ void spritelauncher::FileFunctions::init()
     m_app_dir = QCoreApplication::applicationDirPath();
 #endif
 }
+
+QString spritelauncher::FileFunctions::appDir()
+{
+    return m_app_dir;
+}

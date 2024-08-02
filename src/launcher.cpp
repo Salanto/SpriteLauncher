@@ -1,27 +1,45 @@
 #include "launcher.h"
 #include "downloadmanager.h"
+#include "filefunctions.h"
 #include "launcheruserinterface.h"
+#include "settingsuserdialog.h"
+#include "temporarydirectory.h"
 #include "version.h"
 
 #include <QDebug>
-#include <QTemporaryDir>
 #include <QTemporaryFile>
+#include <QUrl>
 
 Launcher::Launcher(QObject *parent)
     : QObject{parent}
+    , temp_dir(spritelauncher::FileFunctions::appDir(), "cache")
     , downloads(new DownloadManager(spritelauncher::userAgent(), this))
-    , userinterface(new LauncherUserInterface(nullptr))
+    , userinterface(nullptr)
+    , settingsdialog(nullptr)
 {
     qDebug() << "[Launcher]::CTOR: Creating Launcher at" << this;
+    createAndShowLauncherUI();
+    createAndShowSettingsUI();
+}
+
+void Launcher::createAndShowLauncherUI()
+{
+    if (!userinterface) {
+        userinterface = new ui::LauncherUserInterface(nullptr);
+        userinterface->setAttribute(Qt::WA_DeleteOnClose);
+    }
     userinterface->show();
 }
 
-Launcher::~Launcher()
+void Launcher::createAndShowSettingsUI()
 {
-    userinterface->deleteLater();
-}
-
-QFile *Launcher::createTemporaryFile(const QString &filename, const QByteArrayView &data)
-{
-    return nullptr;
+    if (!settingsdialog) {
+        settingsdialog = new ui::SettingsUserDialog(nullptr);
+        settingsdialog->setAttribute(Qt::WA_DeleteOnClose);
+        connect(userinterface,
+                &ui::LauncherUserInterface::closed,
+                settingsdialog,
+                &ui::SettingsUserDialog::close);
+    }
+    settingsdialog->show();
 }
