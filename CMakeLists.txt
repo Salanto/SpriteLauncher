@@ -34,8 +34,14 @@ target_link_libraries(SpriteLauncher PRIVATE
     Qt6::Network
 )
 
-include(GNUInstallDirs)
-install(TARGETS SpriteLauncher
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
+set_target_properties(SpriteLauncher PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY $<1:${CMAKE_CURRENT_LIST_DIR}/bin>
+    RUNTIME_OUTPUT_DIRECTORY $<1:${CMAKE_CURRENT_LIST_DIR}/bin>)
+
+
+if(WIN32)
+    set_property(TARGET SpriteLauncher PROPERTY WIN32_EXECUTABLE true)
+    set(APP_ICON_RESOURCE_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/data/logo/logo.rc")
+    target_sources(SpriteLauncher PRIVATE ${APP_ICON_RESOURCE_WINDOWS})
+endif()
+
