@@ -19,7 +19,6 @@ Launcher::Launcher(QObject *parent)
 {
     qDebug() << "[Launcher]::CTOR: Creating Launcher at" << this;
     createAndShowLauncherUI();
-    createAndShowSettingsUI();
 }
 
 void Launcher::createAndShowLauncherUI()
@@ -27,8 +26,12 @@ void Launcher::createAndShowLauncherUI()
     if (!userinterface) {
         userinterface = new ui::LauncherUserInterface(nullptr);
         userinterface->setAttribute(Qt::WA_DeleteOnClose);
+        connect(userinterface,
+                &ui::LauncherUserInterface::settingsRequested,
+                this,
+                &Launcher::createAndShowSettingsUI);
+        userinterface->show();
     }
-    userinterface->show();
 }
 
 void Launcher::createAndShowSettingsUI()
@@ -40,6 +43,6 @@ void Launcher::createAndShowSettingsUI()
                 &ui::LauncherUserInterface::closed,
                 settingsdialog,
                 &ui::SettingsUserDialog::close);
+        settingsdialog->show();
     }
-    settingsdialog->show();
 }

@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QNetworkReply>
+#include <algorithm>
 
 Download::Download(QNetworkReply *f_reply, QObject *parent)
     : QObject{parent}
@@ -20,11 +21,7 @@ void Download::downloadProgress(qint64 received, qint64 maximum)
         setStatus(Status::RUNNING);
     }
 
-    if (maximum == -1) {
-        return;
-    }
-
-    int percentage = static_cast<int>(float(received) / float(maximum) * 100);
+    int percentage = std::clamp(static_cast<int>(float(received) / float(maximum) * 100), 0, 100);
     qDebug() << "Downloaded" << percentage << "percent of file" << reply->url().fileName();
 
     Q_EMIT progress(percentage);

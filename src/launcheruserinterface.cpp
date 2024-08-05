@@ -22,6 +22,9 @@ ui::LauncherUserInterface::LauncherUserInterface(QWidget *parent)
 
     QUiLoader loader(this);
     loader.load(&file, this);
+
+    QMenu *file_menu = menuBar()->addMenu("File");
+    file_menu->addAction("Open Settings", [this] { Q_EMIT settingsRequested(); });
 }
 
 void ui::LauncherUserInterface::closeEvent(QCloseEvent *event)
