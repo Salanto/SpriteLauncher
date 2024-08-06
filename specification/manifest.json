@@ -1,0 +1,55 @@
+{
+    "server": "Vanilla",
+    "icon": "base64",
+    "content":
+    [
+        {
+            "label": "Vanilla",
+            "version" : "1.0.0",
+            "description": "The basic Attorney Online 2 experience.",
+            "packages" :
+            [
+                "com.aceattorneyonline.aceattorney",
+                "com.aceattorneyonline.trialsandtribulations"
+                "com.aceattorneyonline.justforall"
+            ]
+        },
+        {
+            "label": "Vanilla Plus",
+            "version" : "1.0.1",
+            "description": "Even more files to clutter your disk.",
+            "packages" : ["com.aceattorneyonline.apollojustice"]
+        }
+    ],
+    "packages" :
+    [
+        {
+            "label":"AA",
+            "id":"com.aceattorneyonline.aceattorney",
+            "version":"1.0.0",
+            "url": "url",
+            "hash": "hash"
+        },
+        {
+            "label":"T&T",
+            "id":"com.aceattorneyonline.trialsandtribulations",
+            "version":"1.2.0",
+            "url": "url",
+            "hash": "hash"
+        },
+        {
+            "label":"JFA",
+            "id":"com.aceattorneyonline.justforall",
+            "version":"1.4.0",
+            "url": "url",
+            "hash": "hash"
+        },
+        {
+            "label":"AJ",
+            "id":"com.aceattorneyonline.apollojustice",
+            "version":"1.0.0",
+            "url": "url",
+            "hash": "hash"
+        },
+    ]
+}

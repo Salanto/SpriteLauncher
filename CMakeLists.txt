@@ -28,6 +28,9 @@ add_executable(SpriteLauncher
     data/data.qrc
     src/temporarydirectory.h src/temporarydirectory.cpp
     src/gui_utils.h
+    src/packages/serverinformation.h src/packages/serverinformation.cpp
+    src/packages/contentinformation.h src/packages/contentinformation.cpp
+    src/packages/packageinformation.h src/packages/packageinformation.cpp
 )
 
 target_link_libraries(SpriteLauncher PRIVATE
