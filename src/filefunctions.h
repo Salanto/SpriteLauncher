@@ -13,7 +13,7 @@ public:
     static QString appDir();
 
 private:
-    inline static QString m_app_dir;
+    static QString m_app_dir;
 };
 
 } // namespace spritelauncher

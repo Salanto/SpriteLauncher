@@ -10,7 +10,6 @@
 
 class ServerInformation
 {
-    Q_OBJECT
 public:
     void setServerName(const QString &server_name);
     QString serverName() const;

@@ -4,10 +4,12 @@
 #include <QDir>
 #include <QFileInfo>
 
+QString spritelauncher::FileFunctions::m_app_dir = "";
+
 void spritelauncher::FileFunctions::init()
 {
 #ifdef Q_OS_WINDOWS
-    m_app_dir = QCoreApplication::applicationDirPath();
+    FileFunctions::m_app_dir = QCoreApplication::applicationDirPath();
 #endif
 
 #ifdef Q_OS_LINUX

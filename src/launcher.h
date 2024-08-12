@@ -1,6 +1,8 @@
 #ifndef LAUNCHER_H
 #define LAUNCHER_H
 
+#include "configloader.h"
+#include "download.h"
 #include "temporarydirectory.h"
 
 #include <QObject>
@@ -24,15 +26,17 @@ public:
     explicit Launcher(QObject *parent = nullptr);
 
     QFile *createTemporaryFile(const QString &filename, const QByteArrayView &data);
-
-private Q_SLOTS:
+    void queryServers();
 
 private:
     void createAndShowLauncherUI();
     void createAndShowSettingsUI();
 
+    void serverManifestStateChanged(Download *download);
+
     TemporaryDirectory temp_dir;
     DownloadManager *downloads;
+    ConfigLoader *config;
     QPointer<ui::LauncherUserInterface> userinterface;
     QPointer<ui::SettingsUserDialog> settingsdialog;
 };

@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QNetworkReply>
 #include <algorithm>
+#include <optional>
 
 Download::Download(QNetworkReply *f_reply, QObject *parent)
     : QObject{parent}
@@ -11,8 +12,18 @@ Download::Download(QNetworkReply *f_reply, QObject *parent)
     , max_bytes_availabe{0}
     , reply{f_reply}
 {
-    connect(reply, &QNetworkReply::finished, this, &Download::finished);
-    connect(reply, &QNetworkReply::downloadProgress, this, &Download::downloadProgress);
+    connect(reply.get(), &QNetworkReply::finished, this, &Download::finished);
+    connect(reply.get(), &QNetworkReply::downloadProgress, this, &Download::downloadProgress);
+}
+
+std::optional<QByteArray> Download::data()
+{
+    if (status != Status::FINISHED) {
+        qWarning()
+            << "[Download]::data: Tried to obtain data from Download without being finished.";
+        return std::nullopt;
+    }
+    return m_data;
 }
 
 void Download::downloadProgress(qint64 received, qint64 maximum)
@@ -29,8 +40,8 @@ void Download::downloadProgress(qint64 received, qint64 maximum)
 
 void Download::finished()
 {
+    m_data = reply.get()->readAll();
     setStatus(Status::FINISHED);
-    qDebug() << reply->readAll();
 }
 
 void Download::setStatus(Status f_status)
